@@ -14,3 +14,18 @@ class LoginView(LoginRequiredMixin):
     login_url = '/login/'
     redirect_field_name = 'redirect_to'
 
+
+def get_persons(request):
+    persons = Person.objects.all()
+    context = {
+        'persons': persons,
+    }
+    return render('request', 'persons.html', context)
+
+def person_detail(request, pk):
+    person = Person.objects.get(pk=pk)
+    context = {
+        'person': person,
+    }
+    return render('request', 'person.html', context)
+
