@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Person
 from django.shortcuts import get_object_or_404
@@ -28,4 +28,14 @@ def person_detail(request, pk):
         'person': person,
     }
     return render('request', 'person.html', context)
+
+def add(request):
+    form = Person(request.POST or None)
+    if form.is_valid():
+        form.save()
+        return redirect('index')
+    context = {
+        'form': form,
+    }
+    return render(request, 'add.html', context)
 
